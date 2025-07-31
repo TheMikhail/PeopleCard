@@ -2,11 +2,13 @@ package com.example.peoplecard.model
 
 import com.google.gson.annotations.SerializedName
 import java.sql.Date
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 data class PeopleResponse(
     @SerializedName("results") val peoples: List<People>
+)
+data class Id(
+    val name: String,
+    val value:String
 )
 data class Name(
     val title: String? = null,

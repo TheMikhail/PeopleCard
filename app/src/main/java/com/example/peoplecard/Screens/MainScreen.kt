@@ -1,5 +1,7 @@
 package com.example.peoplecard.Screens
 
+import android.content.Context.MODE_PRIVATE
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,9 +17,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,25 +35,30 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.peoplecard.ViewModel.PeopleState
+import com.example.peoplecard.ViewModel.PeopleViewModel
 import com.example.peoplecard.model.People
-
 @Composable
 fun PersonCard(person:People){
     var showDetail by remember { mutableStateOf(false) }
 
-    Card(Modifier
-        .fillMaxWidth()
-        .padding(vertical = 8.dp)
-        .clickable { showDetail = true }) {
-        Column(modifier = Modifier.padding(16.dp)
+    Log.d("log","")
+    Card(
+        Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable { showDetail = true }) {
+        Column(modifier = Modifier
+            .padding(16.dp)
             .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImage(
                 model = person.picture.large,
                 contentDescription = "User Photo",
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier
+                    .padding(8.dp)
                     .size(150.dp)
                     .clip(CircleShape),
                 contentScale = ContentScale.Crop
@@ -126,6 +136,7 @@ fun PeopleList(people: List<People>){
         }
     }
 }
+
 @Composable
 fun PeopleScreen(state : PeopleState){
         when(state){

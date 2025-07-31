@@ -17,5 +17,7 @@ fun PeopleApp(){
         PeopleScreen(
             state = peopleViewModel.peopleState
         )
+
+
     }
 }

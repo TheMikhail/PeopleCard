@@ -1,6 +1,5 @@
 package com.example.peoplecard.network
 
-import com.example.peoplecard.model.People
 import com.example.peoplecard.model.PeopleResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,6 +14,7 @@ import retrofit2.http.Query
     interface RetrofitServices {
         @GET("api/")
         suspend fun getPeopleFromAPI(
+            @Query("results") results:Int = 10,
             @Query("apiKey") apiKey:String = "0NEL-4D1B-KYRZ-5ZPP"
         ): PeopleResponse
     }
