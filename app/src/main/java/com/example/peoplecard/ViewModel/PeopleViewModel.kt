@@ -1,10 +1,7 @@
 package com.example.peoplecard.ViewModel
-
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.peoplecard.model.People
@@ -12,7 +9,6 @@ import com.example.peoplecard.network.PeopleApi
 import kotlinx.coroutines.launch
 
 class PeopleViewModel : ViewModel() {
-    //private val _peopleState = mutableStateOf<PeopleState>(PeopleState.Loading)
     var peopleState:PeopleState by mutableStateOf(PeopleState.Loading)
         private set
     init {

@@ -1,6 +1,9 @@
 package com.example.peoplecard.model
 
 import com.google.gson.annotations.SerializedName
+import java.sql.Date
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 data class PeopleResponse(
     @SerializedName("results") val peoples: List<People>
@@ -27,9 +30,31 @@ data class Location(
     val postcode: String? = null,
     val country: String? = null,
 )
+data class Registered(
+    val date: Date,
+    val age: Int
+)
+data class Login(
+    val uuid:String,
+    val username:String,
+    val password:String,
+    val salt:String,
+    val md5:String,
+    val sha1:String,
+    val sha256:String,
+)
+data class Dob(
+    val date: Date,
+    val age: Int
+)
 data class People(
+    val gender:String,
+    val login:Login,
     val name: Name,
     val picture: Picture,
     val location: Location,
-    val phone: String? = null
+    val phone: String? = null,
+    val email:String,
+   // val dob: Dob
+   // val registered: Registered ,
 )
