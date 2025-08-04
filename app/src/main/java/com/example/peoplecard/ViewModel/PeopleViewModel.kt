@@ -5,42 +5,51 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.peoplecard.model.People
 import com.example.peoplecard.network.PeopleApi
 import com.google.gson.Gson
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class PeopleViewModel(application: Application) : AndroidViewModel(application) {
     val sharedPreferences = application.getSharedPreferences("MyPrefs", Application.MODE_PRIVATE)
     val gson = Gson()
-    var peopleState:PeopleState by mutableStateOf(PeopleState.Loading)
+    var peopleState:PeopleState by mutableStateOf(PeopleState.Loading())
         private set
 
     init {
+        //clearShared()
         getPeople()
+
     }
-    fun getPeople(){
-        val cachedPeople = getPeopleFromCache()
-        if (cachedPeople.isNotEmpty()){
-            peopleState = PeopleState.Success(cachedPeople)
-        }
-        else{
-            viewModelScope.launch {
-                peopleState = PeopleState.Loading
-                try {
-                    val response = PeopleApi.retrofitServices.getPeopleFromAPI(50)
-                    savePeopleToCache(response.peoples)
-                    peopleState = PeopleState.Success(response.peoples)
-                }
-                catch (e:Exception){
-                    peopleState = PeopleState.Error(e.message?:"Unknown Error")
+    fun getPeople(forceRefresh: Boolean = false){
+        viewModelScope.launch {
+            if (!forceRefresh) {
+                val cachedPeople = getPeopleFromCache()
+                if (cachedPeople.isNotEmpty()) {
+                    peopleState = PeopleState.Success(cachedPeople)
+                    return@launch
                 }
             }
-        }
+            peopleState = PeopleState.Loading(isRefresh = true)
+            try {
+                val response = PeopleApi.retrofitServices.getPeopleFromAPI(50)
+                savePeopleToCache(response.peoples)
+                peopleState = PeopleState.Success(response.peoples)
+                Log.d("SAVE_DATA", "Saving people: ${gson.toJson(response.peoples)}")
+            } catch (e: Exception) {
+                val cachedPeople = getPeopleFromCache()
+                if (cachedPeople.isNotEmpty() && !forceRefresh)
+                    peopleState = PeopleState.Success(cachedPeople)
+                else
+                    peopleState = PeopleState.Error(e.message ?: "Unknown Error")
 
+            }
+        }
+    }
+
+    fun clearShared(){
+        sharedPreferences.edit().clear().commit()
     }
     fun getPeopleFromCache(): List<People>{
         val peopleData = sharedPreferences.getString("people_data", null)
@@ -56,11 +65,12 @@ class PeopleViewModel(application: Application) : AndroidViewModel(application) 
        sharedPreferences.edit()
            .putString("people_data", gson.toJson(people))
            .apply()
+
     }
 }
 
 sealed interface PeopleState{
-    object Loading: PeopleState
+    data class Loading(val isRefresh: Boolean = false): PeopleState
     data class Success(val people: List<People>) : PeopleState
     data class Error(val message: String) : PeopleState
 }

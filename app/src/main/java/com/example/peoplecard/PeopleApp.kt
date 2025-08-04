@@ -15,9 +15,8 @@ fun PeopleApp(){
     ) {
         val peopleViewModel: PeopleViewModel = viewModel()
         PeopleScreen(
-            state = peopleViewModel.peopleState
+            state = peopleViewModel.peopleState,
+            onRefresh = {peopleViewModel.getPeople(forceRefresh = true)}
         )
-
-
     }
 }

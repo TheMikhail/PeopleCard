@@ -1,7 +1,11 @@
 package com.example.peoplecard.model
 
+import androidx.compose.animation.core.R
 import com.google.gson.annotations.SerializedName
 import java.sql.Date
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 data class PeopleResponse(
     @SerializedName("results") val peoples: List<People>
@@ -33,7 +37,7 @@ data class Location(
     val country: String? = null,
 )
 data class Registered(
-    val date: Date,
+    val date: String,
     val age: Int
 )
 data class Login(
@@ -46,7 +50,7 @@ data class Login(
     val sha256:String,
 )
 data class Dob(
-    val date: Date,
+    val date: String,
     val age: Int
 )
 data class People(
@@ -57,6 +61,6 @@ data class People(
     val location: Location,
     val phone: String? = null,
     val email:String,
-   // val dob: Dob
-   // val registered: Registered ,
+    val dob: Dob,
+    val registered: Registered ,
 )
