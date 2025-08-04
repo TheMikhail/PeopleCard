@@ -28,10 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
-import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
-import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,10 +41,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import coil.compose.AsyncImage
 import com.example.peoplecard.ViewModel.PeopleState
-import com.example.peoplecard.ViewModel.PeopleViewModel
 import com.example.peoplecard.model.People
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -179,7 +174,7 @@ fun PeopleList(
     PullToRefreshBox(
         isRefreshing = isRefreshing,
         onRefresh = onRefresh
-    ){
+    ) {
         LazyColumn(modifier = Modifier.padding(16.dp)) {
             items(people) { person ->
                 PersonCard(person = person)
@@ -206,7 +201,7 @@ fun PeopleScreen(
                 }
             )
         }
-    ){padding ->
+    ) { padding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()

@@ -1,4 +1,5 @@
 package com.example.peoplecard.ViewModel
+
 import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -14,15 +15,14 @@ import kotlinx.coroutines.launch
 class PeopleViewModel(application: Application) : AndroidViewModel(application) {
     val sharedPreferences = application.getSharedPreferences("MyPrefs", Application.MODE_PRIVATE)
     val gson = Gson()
-    var peopleState:PeopleState by mutableStateOf(PeopleState.Loading())
+    var peopleState: PeopleState by mutableStateOf(PeopleState.Loading())
         private set
 
     init {
-        //clearShared()
         getPeople()
-
     }
-    fun getPeople(forceRefresh: Boolean = false){
+
+    fun getPeople(forceRefresh: Boolean = false) {
         viewModelScope.launch {
             if (!forceRefresh) {
                 val cachedPeople = getPeopleFromCache()
@@ -48,29 +48,27 @@ class PeopleViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun clearShared(){
-        sharedPreferences.edit().clear().commit()
-    }
-    fun getPeopleFromCache(): List<People>{
+
+    fun getPeopleFromCache(): List<People> {
         val peopleData = sharedPreferences.getString("people_data", null)
-        if (peopleData != null){
+        if (peopleData != null) {
             val people = gson.fromJson(peopleData, Array<People>::class.java).toList()
             peopleState = PeopleState.Success(people)
             return people
-        }
-        else
+        } else
             return emptyList()
     }
+
     private fun savePeopleToCache(people: List<People>) {
-       sharedPreferences.edit()
-           .putString("people_data", gson.toJson(people))
-           .apply()
+        sharedPreferences.edit()
+            .putString("people_data", gson.toJson(people))
+            .apply()
 
     }
 }
 
-sealed interface PeopleState{
-    data class Loading(val isRefresh: Boolean = false): PeopleState
+sealed interface PeopleState {
+    data class Loading(val isRefresh: Boolean = false) : PeopleState
     data class Success(val people: List<People>) : PeopleState
     data class Error(val message: String) : PeopleState
 }
