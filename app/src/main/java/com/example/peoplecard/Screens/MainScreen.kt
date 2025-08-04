@@ -1,7 +1,13 @@
 package com.example.peoplecard.Screens
 
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.provider.ContactsContract
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,12 +44,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.peoplecard.ViewModel.PeopleState
+import com.example.peoplecard.ViewModel.PeopleViewModel
 import com.example.peoplecard.model.People
+import com.example.peoplecard.openContact
+import com.example.peoplecard.openEmail
+import com.example.peoplecard.openMap
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -88,9 +101,11 @@ fun PersonCard(person: People) {
                         "${person.location.postcode}",
                 modifier = Modifier.padding(top = 4.dp)
             )
+            val context = LocalContext.current
             Text(
                 text = "Phone number: ${person.phone}",
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier
+                    .padding(top = 4.dp)
             )
         }
     }
@@ -113,6 +128,7 @@ fun dateParse(date: String): String {
 
 @Composable
 fun ShowDetailCard(person: People, onDismiss: () -> Unit) {
+    val context = LocalContext.current
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
@@ -131,18 +147,41 @@ fun ShowDetailCard(person: People, onDismiss: () -> Unit) {
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-
-                Text("Address:", fontWeight = FontWeight.Bold)
-                Text("${person.location.street?.number} ${person.location.street?.name}")
-                Text("${person.location.city}, ${person.location.state}")
-                Text("${person.location.country}, ${person.location.postcode}")
-
+                Box (modifier = Modifier
+                    .clickable {
+                        openMap(context, person.location.coordinates.latitude, person.location.coordinates.longitude)
+                    }
+                ){
+                    Column {
+                        Text("Address:", fontWeight = FontWeight.Bold)
+                        Text("${person.location.street?.number} ${person.location.street?.name}", style = MaterialTheme.typography.bodyLarge.copy(
+                            textDecoration = TextDecoration.Underline
+                        ))
+                        Text("${person.location.city}, ${person.location.state}", style = MaterialTheme.typography.bodyLarge.copy(
+                            textDecoration = TextDecoration.Underline
+                        ))
+                        Text("${person.location.country}, ${person.location.postcode}", style = MaterialTheme.typography.bodyLarge.copy(
+                            textDecoration = TextDecoration.Underline
+                        ))
+                    }
+                }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text("Phone: ${person.phone}")
+                Text("Phone: ${person.phone}",
+                    modifier = Modifier
+                        .clickable {
+                            openContact(context, person.phone)
+                        }, style = MaterialTheme.typography.bodyLarge.copy(
+                        textDecoration = TextDecoration.Underline
+                    ))
+                Text("Email: ${person.email}", modifier = Modifier
+                    .clickable {
+                        openEmail(context, person.email)
+                    }, style = MaterialTheme.typography.bodyLarge.copy(
+                    textDecoration = TextDecoration.Underline
+                ),)
                 Text("Gender: ${person.gender}")
                 Text("Login: ${person.login.username}")
-                Text("Email: ${person.email}")
                 Text("Dob: ${dateParse(person.dob.date)}")
                 Text("Age: ${person.dob.age}")
                 Text("Registered date: ${dateParse(person.registered.date)}")

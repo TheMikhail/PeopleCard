@@ -27,12 +27,17 @@ data class Street(
 
 )
 
+data class Coordinates(
+    val latitude: String,
+    val longitude: String
+)
 data class Location(
     val street: Street? = null,
     val city: String? = null,
     val state: String? = null,
     val postcode: String? = null,
     val country: String? = null,
+    val coordinates: Coordinates
 )
 
 data class Registered(
@@ -61,7 +66,7 @@ data class People(
     val name: Name,
     val picture: Picture,
     val location: Location,
-    val phone: String? = null,
+    val phone: String,
     val email: String,
     val dob: Dob,
     val registered: Registered,
