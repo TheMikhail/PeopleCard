@@ -1,13 +1,7 @@
 package com.example.peoplecard.ViewModel
 
 import android.app.Application
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
-import android.provider.ContactsContract
-import android.provider.ContactsContract.Contacts
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue

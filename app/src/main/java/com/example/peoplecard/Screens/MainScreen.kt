@@ -1,13 +1,7 @@
 package com.example.peoplecard.Screens
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
-import android.provider.ContactsContract
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,14 +39,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.peoplecard.ViewModel.PeopleState
-import com.example.peoplecard.ViewModel.PeopleViewModel
 import com.example.peoplecard.model.People
 import com.example.peoplecard.openContact
 import com.example.peoplecard.openEmail
