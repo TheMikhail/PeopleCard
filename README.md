@@ -29,7 +29,8 @@
   Retrofit для работы с JSON.
 </li>
  
-<h2>Демо</h2>
+<h2>Демо</h2><br>
+<a href="https://github.com/TheMikhail/PeopleCard/releases/tag/app">Скачать приложение</a><br>
 
 ![photo_5226792023628053739_y](https://github.com/user-attachments/assets/ed40534c-6126-4f58-9741-33cfa3e1537f)
 ![photo_5226792023628053738_y](https://github.com/user-attachments/assets/481589a5-6f50-414c-a86e-9b60f10fb6a1)
