@@ -23,19 +23,24 @@
 </ul>
 <h2>Стек технологий</h2>
 <li>
-  Приложение реализовано на языке Kotlin с использованием Compose;
+  Kotlin;
 </li>
 <li>
-  Retrofit для работы с JSON.
+  Compose;
+</li>
+<li>
+  Retrofit.
 </li>
  
 <h2>Демо</h2><br>
 <a href="https://github.com/TheMikhail/PeopleCard/releases/tag/app">Скачать приложение</a><br>
+
+https://github.com/user-attachments/assets/1c74c7c5-6e1a-4262-aed9-ec9ad30fa42e
 
 ![photo_5226792023628053739_y](https://github.com/user-attachments/assets/ed40534c-6126-4f58-9741-33cfa3e1537f)
 ![photo_5226792023628053738_y](https://github.com/user-attachments/assets/481589a5-6f50-414c-a86e-9b60f10fb6a1)
 ![photo_5226792023628053737_y](https://github.com/user-attachments/assets/b70729cf-305d-4a37-92f1-b165444fda5a)
 
 
-https://github.com/user-attachments/assets/1c74c7c5-6e1a-4262-aed9-ec9ad30fa42e
+
 
