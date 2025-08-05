@@ -9,13 +9,14 @@ import com.example.peoplecard.Screens.PeopleScreen
 import com.example.peoplecard.ViewModel.PeopleViewModel
 
 @Composable
-fun PeopleApp(){
+fun PeopleApp() {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
         val peopleViewModel: PeopleViewModel = viewModel()
         PeopleScreen(
-            state = peopleViewModel.peopleState
+            state = peopleViewModel.peopleState,
+            onRefresh = { peopleViewModel.getPeople(forceRefresh = true) }
         )
     }
 }
