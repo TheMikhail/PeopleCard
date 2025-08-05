@@ -8,7 +8,7 @@ import android.net.Uri
 import android.provider.ContactsContract
 import android.widget.Toast
 
-fun openContact(context: Context, phoneNumber: String){
+fun openContact(context: Context, phoneNumber: String) {
     val intent = Intent(Intent.ACTION_INSERT_OR_EDIT).apply {
         type = ContactsContract.Contacts.CONTENT_ITEM_TYPE
         putExtra(ContactsContract.Intents.Insert.PHONE, phoneNumber)
@@ -16,7 +16,7 @@ fun openContact(context: Context, phoneNumber: String){
     }
     try {
         context.startActivity(intent)
-    }catch (e: ActivityNotFoundException){
+    } catch (e: ActivityNotFoundException) {
         Toast.makeText(
             context,
             "Контакты не найдены на устройстве",
@@ -24,7 +24,8 @@ fun openContact(context: Context, phoneNumber: String){
         ).show()
     }
 }
-fun openEmail(context: Context, email: String){
+
+fun openEmail(context: Context, email: String) {
     val intent = Intent(Intent.ACTION_SENDTO).apply {
         data = Uri.parse("mailto:")
         putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
@@ -41,18 +42,20 @@ fun openEmail(context: Context, email: String){
         ).show()
     }
 }
+
 @SuppressLint("SuspiciousIndentation")
-fun openMap(context: Context, latitude: String, longitude: String){
-    val intent = Intent(Intent.ACTION_VIEW,
+fun openMap(context: Context, latitude: String, longitude: String) {
+    val intent = Intent(
+        Intent.ACTION_VIEW,
         Uri.parse("http://maps.google.com/maps?saddr=$latitude&daddr=$longitude")
     )
-        try {
-            context.startActivity(intent)
-        } catch (e:ActivityNotFoundException){
-            Toast.makeText(
-                context,
-                "Приложение карт не найдено",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+    try {
+        context.startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        Toast.makeText(
+            context,
+            "Приложение карт не найдено",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.peoplecard.model
+
 import com.google.gson.annotations.SerializedName
+
 data class PeopleResponse(
     @SerializedName("results") val peoples: List<People>
 )
@@ -31,6 +33,7 @@ data class Coordinates(
     val latitude: String,
     val longitude: String
 )
+
 data class Location(
     val street: Street? = null,
     val city: String? = null,

@@ -147,39 +147,58 @@ fun ShowDetailCard(person: People, onDismiss: () -> Unit) {
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-                Box (modifier = Modifier
+                Box(modifier = Modifier
                     .clickable {
-                        openMap(context, person.location.coordinates.latitude, person.location.coordinates.longitude)
+                        openMap(
+                            context,
+                            person.location.coordinates.latitude,
+                            person.location.coordinates.longitude
+                        )
                     }
-                ){
+                ) {
                     Column {
                         Text("Address:", fontWeight = FontWeight.Bold)
-                        Text("${person.location.street?.number} ${person.location.street?.name}", style = MaterialTheme.typography.bodyLarge.copy(
-                            textDecoration = TextDecoration.Underline
-                        ))
-                        Text("${person.location.city}, ${person.location.state}", style = MaterialTheme.typography.bodyLarge.copy(
-                            textDecoration = TextDecoration.Underline
-                        ))
-                        Text("${person.location.country}, ${person.location.postcode}", style = MaterialTheme.typography.bodyLarge.copy(
-                            textDecoration = TextDecoration.Underline
-                        ))
+                        Text(
+                            "${person.location.street?.number} ${person.location.street?.name}",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                textDecoration = TextDecoration.Underline
+                            )
+                        )
+                        Text(
+                            "${person.location.city}, ${person.location.state}",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                textDecoration = TextDecoration.Underline
+                            )
+                        )
+                        Text(
+                            "${person.location.country}, ${person.location.postcode}",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                textDecoration = TextDecoration.Underline
+                            )
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text("Phone: ${person.phone}",
+                Text(
+                    "Phone: ${person.phone}",
                     modifier = Modifier
                         .clickable {
                             openContact(context, person.phone)
                         }, style = MaterialTheme.typography.bodyLarge.copy(
                         textDecoration = TextDecoration.Underline
-                    ))
-                Text("Email: ${person.email}", modifier = Modifier
-                    .clickable {
-                        openEmail(context, person.email)
-                    }, style = MaterialTheme.typography.bodyLarge.copy(
-                    textDecoration = TextDecoration.Underline
-                ),)
+                    )
+                )
+                Text(
+                    "Email: ${person.email}",
+                    modifier = Modifier
+                        .clickable {
+                            openEmail(context, person.email)
+                        },
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        textDecoration = TextDecoration.Underline
+                    ),
+                )
                 Text("Gender: ${person.gender}")
                 Text("Login: ${person.login.username}")
                 Text("Dob: ${dateParse(person.dob.date)}")

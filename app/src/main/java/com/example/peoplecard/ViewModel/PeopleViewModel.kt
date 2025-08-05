@@ -19,7 +19,8 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class PeopleViewModel(application: Application) : AndroidViewModel(application) {
-    private val sharedPreferences = application.getSharedPreferences("MyPrefs", Application.MODE_PRIVATE)
+    private val sharedPreferences =
+        application.getSharedPreferences("MyPrefs", Application.MODE_PRIVATE)
     private val gson = Gson()
     var peopleState: PeopleState by mutableStateOf(PeopleState.Loading())
         private set

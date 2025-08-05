@@ -19,21 +19,21 @@ val client = OkHttpClient.Builder()
     .certificatePinner(certPinner)
     .build()
 val retrofit = Retrofit.Builder()
-        .baseUrl("https://randomuser.me/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(client)
-        .build()
+    .baseUrl("https://randomuser.me/")
+    .addConverterFactory(GsonConverterFactory.create())
+    .client(client)
+    .build()
 
-    interface RetrofitServices {
-        @GET("api/")
-        suspend fun getPeopleFromAPI(
-            @Query("results") results:Int = 1,
-            @Query("apiKey") apiKey:String = "0NEL-4D1B-KYRZ-5ZPP"
-        ): PeopleResponse
-    }
+interface RetrofitServices {
+    @GET("api/")
+    suspend fun getPeopleFromAPI(
+        @Query("results") results: Int = 1,
+        @Query("apiKey") apiKey: String = "0NEL-4D1B-KYRZ-5ZPP"
+    ): PeopleResponse
+}
 
-    object PeopleApi{
-        val retrofitServices: RetrofitServices by lazy {
-            retrofit.create(RetrofitServices::class.java)
-        }
+object PeopleApi {
+    val retrofitServices: RetrofitServices by lazy {
+        retrofit.create(RetrofitServices::class.java)
     }
+}
