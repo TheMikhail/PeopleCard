@@ -7,7 +7,8 @@
 5) Нажатие на Email, номер телефона, адрес/координаты отправляет пользователя в
 приложение, которое может обработать эти данные (почта, звонилка, карты);
 Приложение реализовано на языке Kotlin с использованием Compose и Retrofit для работы с JSON.
-Скриншоты 
+Скриншоты
+
 ![photo_5226792023628053739_y](https://github.com/user-attachments/assets/ed40534c-6126-4f58-9741-33cfa3e1537f)
 ![photo_5226792023628053738_y](https://github.com/user-attachments/assets/481589a5-6f50-414c-a86e-9b60f10fb6a1)
 ![photo_5226792023628053737_y](https://github.com/user-attachments/assets/b70729cf-305d-4a37-92f1-b165444fda5a)
